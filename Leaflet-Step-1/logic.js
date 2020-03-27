@@ -24,12 +24,22 @@ var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.pn
     noWrap: true
     });
 
+var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.dark",
+    accessToken: API_KEY,
+    continuousWorld: false,
+    noWrap: true
+    });
+
+
 var myMap = L.map("map", {
     center: [0,-50],
     zoom: 3,
     zoomSnap: 0.25,
     minzoom: 5,
-    layers: streetmap,
+    layers: streetmap, darkmap
 });
 
 var thresholds = [5,4,3,2,1,0];
@@ -40,7 +50,7 @@ var colors = ["#ff0000", "#fc6519", "#f9b732", "#f7f74b","#c3f462","#a1f179"]
 var dropDownDays = d3.select ("#times");
 var currentMap = d3.select("#current");
 
-var currentView = currentMap.text(`Check "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
+var currentView = currentMap.text(`Click on "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
 currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
 
 for (var i = 0; i < times.length; i++) {
@@ -60,11 +70,13 @@ function dayChanged(day) {
     console.log (`time changed to ${day}`);
     timePeriod = day;
     geoData = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${level}_${timePeriod}.geojson`;
-    currentView = currentMap.text(`Check "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
+    currentView = currentMap.text(`Click on "Earthquakes "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
+    currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
     console.log(geoData);
     layerscontrol.remove();
     legend.remove();
     myMap.removeLayer(overlayMaps.Earthquakes);
+    myMap.removeLayer(overlayMaps.Plates);
     dataQuery (geoData);
 
 }
@@ -73,11 +85,13 @@ function severityChanged(severity) {
     console.log (`severity changed to ${severity}`);
     level = severity;
     geoData = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${level}_${timePeriod}.geojson`;
-    currentView = currentMap.text(`Check "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
+    currentView = currentMap.text(`Click on "Earthquakes "Earthquakes" to see earthquakes with ${level} magnitudes, over the last ${timePeriod}`);
+    currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
     console.log(geoData);
     layerscontrol.remove();
     legend.remove();
     myMap.removeLayer(overlayMaps.Earthquakes);
+    myMap.removeLayer(overlayMaps.Plates);
     dataQuery (geoData);
 }
 
@@ -91,25 +105,7 @@ function dataQuery (geoData) {
     });        
 }
 
-function reviseMaps(magnitudeMarker, plateMarkers){
-    streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-        attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-        maxZoom: 18,
-        id: "mapbox.streets",
-        accessToken: API_KEY,
-        continuousWorld: false,
-        noWrap: true
-        });
-    
-    var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-        attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-        maxZoom: 18,
-        id: "mapbox.dark",
-        accessToken: API_KEY,
-        continuousWorld: false,
-        noWrap: true
-        });
-    
+function reviseMaps(magnitudeMarker, plateMarkers){  
         // Define a baseMaps object to hold our base layers
     var baseMaps = {
         "Street Map": streetmap,
@@ -122,11 +118,14 @@ function reviseMaps(magnitudeMarker, plateMarkers){
         Plates: plateMarkers
     };
         
-    myMap.layers = [streetmap, magnitudeMarker, plateMarkers];
+    myMap.layers = [streetmap, darkmap, magnitudeMarker, plateMarkers];
         
     layerscontrol = L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
     }).addTo(myMap);
+
+    magnitudeMarker.addTo(myMap);
+    plateMarkers.addTo(myMap);
 
     // Legends
     
