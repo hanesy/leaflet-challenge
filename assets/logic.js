@@ -8,63 +8,10 @@ var severities = ["significant", "4.5", "2.5", "1.0", "all"];
 var timePeriod = "month";
 var level = "significant";
 var geoData = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${level}_${timePeriod}.geojson`;
-var plateData = "/Leaflet-Step-2/PB2002_boundaries.json";
+var plateData = "/data/PB2002_boundaries.json";
 var layerscontrol;
 var legend;
 var overlayMaps;
-
-// Map and Legend Variables
-
-var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "mapbox.streets",
-    accessToken: API_KEY,
-    continuousWorld: false,
-    noWrap: true
-    });
-
-var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "mapbox.dark",
-    accessToken: API_KEY,
-    continuousWorld: false,
-    noWrap: true
-    });
-
-
-var myMap = L.map("map", {
-    center: [0,0],
-    zoom: 2,
-    zoomSnap: 0.25,
-    minzoom: 5,
-    layers: darkmap, streetmap
-});
-
-var thresholds = [5,4,3,2,1,0];
-var categories = ["5+", "4-5", "3-4", "2-3", "1-2", "<1"];
-var colors = ["#ff0000", "#fc6519", "#f9b732", "#f7f74b","#c3f462","#a1f179"]
-
-// Create Website Selections
-var dropDownDays = d3.select ("#times");
-var currentMap = d3.select("#current");
-
-var currentView = currentMap.text(`Map is rendering earthquakes with ${level} magnitudes (and greater), over the last ${timePeriod}.`);
-currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
-
-for (var i = 0; i < times.length; i++) {
-  // console.log(names[i]);
-  dropDownDays.append("option").attr("value", i).text(times[i]);
-}
-
-var dropDownSeverity = d3.select ("#severity");
-
-for (var i = 0; i < severities.length; i++) {
-  // console.log(names[i]);
-  dropDownSeverity.append("option").attr("value", i).text(severities[i]);
-}
-
 // Updating Selections
 function dayChanged(day) {
     console.log (`time changed to ${day}`);
@@ -95,6 +42,63 @@ function severityChanged(severity) {
     dataQuery (geoData);
 }
 
+// Map and Legend Variables
+
+var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.streets",
+    accessToken: API_KEY,
+    continuousWorld: false,
+    noWrap: true
+    });
+
+var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.dark",
+    accessToken: API_KEY,
+    continuousWorld: false,
+    noWrap: true
+    });
+
+
+var myMap = L.map("map", {
+    center: [0,0],
+    zoomControl: false,
+    zoom: 2,
+    dragging: false,
+    touchZoom: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    // zoomSnap: 0.25,
+    // minzoom: 5,
+    layers: darkmap, streetmap
+});
+
+var thresholds = [5,4,3,2,1,0];
+var categories = ["5+", "4-5", "3-4", "2-3", "1-2", "<1"];
+var colors = ["#ff0000", "#fc6519", "#f9b732", "#f7f74b","#c3f462","#a1f179"]
+
+// Create Website Selections
+var dropDownDays = d3.select ("#times");
+var currentMap = d3.select("#current");
+
+var currentView = currentMap.text(`Map is rendering earthquakes with ${level} magnitudes (and greater), over the last ${timePeriod}.`);
+currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
+
+for (var i = 0; i < times.length; i++) {
+// console.log(names[i]);
+dropDownDays.append("option").attr("value", i).text(times[i]);
+}
+
+var dropDownSeverity = d3.select ("#severity");
+
+for (var i = 0; i < severities.length; i++) {
+// console.log(names[i]);
+dropDownSeverity.append("option").attr("value", i).text(severities[i]);
+}
+
 function dataQuery (geoData) {
     d3.json(geoData, function(earthquakes){
         d3.json(plateData, function (plates){
@@ -103,9 +107,9 @@ function dataQuery (geoData) {
             reviseMaps(eq, plates);
         })
     });        
-}
+    }
 
-function reviseMaps(magnitudeMarker, plateMarkers){  
+    function reviseMaps(magnitudeMarker, plateMarkers){  
         // Define a baseMaps object to hold our base layers
     var baseMaps = {
         "Dark Map": darkmap,
@@ -180,8 +184,8 @@ function earthquakeMarkers(geoData){
         var location = feature.properties.place;
         var date = new Date(feature.properties.time);
 
-        layer.bindPopup("<h3>Magnitude: " + magnitude + "</h3>" +
-            "<hr><h4>"+ location + "</h4>" +
+        layer.bindPopup("<strong>Magnitude: " + magnitude + "<strong>" +
+            "<hr><em>"+ location + "</em>" +
             "<hr><p>" + date + "</p>");
 
     }
@@ -239,4 +243,7 @@ function earthquakeMarkers(geoData){
 
 }
 
-dataQuery (geoData);
+document.addEventListener('DOMContentLoaded', function(){
+
+    dataQuery (geoData);
+});

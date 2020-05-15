@@ -2,42 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Basic Map</title>
-
-    <!-- Leaflet CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-    crossorigin=""></script>
-
-    <!-- Our CSS -->
-    <link rel="stylesheet" type="text/css" href="Leaflet-Step-1/style.css">
-
-    <!-- D3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+  <!-- Libs -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+  <!-- End libs -->
+  
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+  
+  <title>Mapping Earthquakes</title>
 </head>
 
 <body>
-  <!-- The div where we will inject our map -->
-    <div id = "intro">
 
-    <h1>Earthquake Maps</h1>
-    <p>Heain Yee - March 2020</p>
-    <p>Try different datasets using the selection menu.</p> 
-    <hr>
-    <p>Select Time: <select id="times" onchange="dayChanged(this.options[this.selectedIndex].innerHTML)"></select> </p> 
-    <p>Select Severity: <select id="severity" onchange="severityChanged(this.options[this.selectedIndex].innerHTML)"></select> </p>
-    <section id = "current"></section>   
-    </div>  
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <a class="navbar-brand" href="index.html">HY</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="https://hanesy.github.io/">home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hanesy.github.io/about">about me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hanesy.github.io/personality">personality</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hanesy.github.io/resume">resume</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            projects
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="https://hanesy.github.io/projects"> <strong> see all projects </strong></a>
+            <a class="dropdown-item" href="https://hanesy.github.io/NBA_Playoffs/" target="_blank"> predicting NBA playoffs</a>
+            <a class="dropdown-item" href="https://public.tableau.com/profile/heain#!/vizhome/Tableau-Challenge_15863863626670/StoryBoard" target="_blank"> CitiBike ridership - viz story </a>
+            <a class="dropdown-item" href="https://olympics-dash.herokuapp.com/" target="_blank"> Olympics dashboard</a>
+            <a class="dropdown-item" href="https://icma.org/articles/doing-data-right" target="_blank"> doing data right</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class = "container">
+    <div class="row topBanner">
+      <div class="col-md-12 text-center" ><h1>Earthquake Maps</h1>
+        <article>Heain Yee - March 2020</article>
+        <article><i>Mapping of United States Geological Survey APIs. Using Javascript, HTML, CSS, Leaflet.</i></article>
+      </div>
+    </div>
+
+    <div class="row mainBar">
+      <div class="col-md-12 text-center" id = "center">
+        <h2>Try different datasets using the selection menu.</h2>
+        <p>Select Time: <select id="times" onchange="dayChanged(this.options[this.selectedIndex].innerHTML)"></select> </p> 
+        <p>Select Severity: <select id="severity" onchange="severityChanged(this.options[this.selectedIndex].innerHTML)"></select> </p>
+      </div>
+    </div>
+
+    <div class="row secondBar">
+      <div class="col-md-12 text-center" id = "center">
+        <section id = "current"></section>   
+        
+      </div>
+    </div>
+
+  </div>
     
-    <div id="map"></div>
+  <div id="map"></div>
 
-  <!-- API key -->
+
   <script type="text/javascript" src="config.js"></script>
-  <!-- JS -->
-  <script type="text/javascript" src="Leaflet-Step-1/logic.js"></script>
+  <script type="text/javascript" src="assets/logic.js"></script>
 </body>
 </html>
 

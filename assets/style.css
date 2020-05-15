@@ -1,0 +1,178 @@
+html {
+  padding: 25px 25px;
+}
+
+body {
+  margin: 30px;
+  color: #3C5973;
+}
+
+.navbar{
+  background:#F2F2F2;
+  border: 2px solid gray;
+}
+
+.container {
+  padding: 15px;
+  padding-right: 100px;
+  padding-left: 100px;
+}
+
+.topBanner{
+  margin: 10px;
+}
+
+.topBanner em {
+  color: #3E939E;
+}
+
+.mainBar{
+  background: #e5e5e5;
+  text-align: left;
+  margin: 10px;
+}
+
+.mainBar em {
+  color: #3E939E;
+  font-weight: bolder;
+}
+
+.mainBar img {
+  border: 3px solid #fff;
+  border-radius: 4px;
+  padding: 5px;
+  max-width: 100%;
+}
+
+.secondBar{
+  background: #F2F2F2;
+  text-align: left;
+  margin: 10px;
+}
+
+.secondBar img {
+  border: 3px solid #fff;
+  border-radius: 4px;
+  padding: 5px;
+  max-width: 100%;
+}
+
+.about {
+  border: 1px solid #fff;
+}
+
+#center{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#timelineChart_hc {
+  position: relative;
+  width: 100% !important;
+  margin-bottom: 15px;
+}
+
+#MBTI {
+  position: relative;
+  width: 100% !important;
+  margin-bottom: 15px;
+}
+
+#enneagram {
+  position: relative;
+  width: 100% !important;
+  margin-bottom: 15px;
+}
+
+#footer {
+  margin: 0px;
+  text-align: center;
+  font-size: 80%;
+}
+
+#footer div{
+  margin: 20px;
+}
+
+.card {
+    font-size: 80%;
+    margin: 2px;
+}
+
+.btn{
+    margin: 2px;
+    width: 45%;
+    background: #3E939E;
+    border: none;
+    font-size: 90%;
+}
+
+p{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#map,
+body,
+html {
+  position: relative;
+  height: 100% !important;
+}
+
+.legend {
+  padding: 10px;
+  font-size: 12px;
+  color: #555;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+  text-align: left;
+}
+
+.square {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+}
+
+/* body {
+    padding: 0;
+    margin: 0;
+  }
+  
+#map,
+body,
+html {
+  height: 100%;
+}
+  
+.leaflet-popup-content {
+  text-align: left;
+}
+
+.square {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+}
+
+.legend {
+  padding: 10px;
+  font-size: 12px;
+  color: #555;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+#intro{
+  padding: 15px;
+  font-family: sans-serif
+}
+
+#current{
+  text-align: center;
+} */
