@@ -8,10 +8,12 @@ var severities = ["significant", "4.5", "2.5", "1.0", "all"];
 var timePeriod = "month";
 var level = "significant";
 var geoData = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/${level}_${timePeriod}.geojson`;
-var plateData = "/data/PB2002_boundaries.json";
+var plateData = "https://raw.githubusercontent.com/hanesy/leaflet-challenge/master/data/PB2002_boundaries.json";
 var layerscontrol;
 var legend;
 var overlayMaps;
+var API_KEY = "pk.eyJ1IjoicnlhbnBidXNzIiwiYSI6ImNrODF1YzhrbzB0bnEzbGxuamtweWZscG8ifQ.vSvQA8LotLoiAWauaObpHw";
+
 // Updating Selections
 function dayChanged(day) {
     console.log (`time changed to ${day}`);
