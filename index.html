@@ -45,17 +45,20 @@
           <a class="nav-link" href="https://hanesy.github.io/resume">resume</a>
         </li>
         
+        <li class="nav-item">
+          <a class="nav-link" href="projects.html"> see all projects </a>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            projects
+            featured projects
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="https://hanesy.github.io/projects"> <strong> see all projects </strong></a>
-            <a class="dropdown-item" href="https://hanesy.github.io/NBA_Playoffs/" target="_blank"> predicting NBA playoffs</a>
-            <a class="dropdown-item" href="https://public.tableau.com/profile/heain#!/vizhome/Tableau-Challenge_15863863626670/StoryBoard" target="_blank"> CitiBike ridership - viz story </a>
-            <a class="dropdown-item" href="https://olympics-dash.herokuapp.com/" target="_blank"> Olympics dashboard</a>
-            <a class="dropdown-item" href="https://icma.org/articles/doing-data-right" target="_blank"> doing data right</a>
-            <a class="dropdown-item" href="https://hanesy.github.io/leaflet-challenge/" target="_blank"> Mapping Earthquakes</a>
+            <a class="dropdown-item" href="https://public.tableau.com/profile/heain#!/vizhome/Tableau-Challenge_15863863626670/StoryBoard" target="_blank"> CitiBike Ridership</a>
+            <a class="dropdown-item" href="https://icma.org/articles/doing-data-right" target="_blank"> Doing Data Right</a>
+            <a class="dropdown-item active" href="https://hanesy.github.io/leaflet-challenge/" target="_blank"> Mapping Earthquakes</a>
+            <a class="dropdown-item" href="https://olympics-dash.herokuapp.com/" target="_blank"> Olympics Dashboard</a>
+            <a class="dropdown-item" href="https://hanesy.github.io/NBA_Playoffs/" target="_blank"> Predicting NBA Playoffs</a>
           </div>
         </li>
       </ul>
@@ -72,6 +75,7 @@
     <div class="row mainBar">
       <div class="col-md-12 text-center" id = "center">
         <h2>Try different datasets using the selection menu.</h2>
+        <p>Markers may take a few seconds to load for larger queries.</p>
         <p>Select Time: <select id="times" onchange="dayChanged(this.options[this.selectedIndex].innerHTML)"></select> </p> 
         <p>Select Severity: <select id="severity" onchange="severityChanged(this.options[this.selectedIndex].innerHTML)"></select> </p>
       </div>
@@ -79,7 +83,7 @@
 
     <div class="row secondBar">
       <div class="col-md-12 text-center" id = "center">
-        <section id = "current"></section>   
+        <section id = "current"></section>
         
       </div>
     </div>

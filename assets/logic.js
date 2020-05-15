@@ -87,7 +87,6 @@ var dropDownDays = d3.select ("#times");
 var currentMap = d3.select("#current");
 
 var currentView = currentMap.text(`Map is rendering earthquakes with ${level} magnitudes (and greater), over the last ${timePeriod}.`);
-currentMap.append("p").text("Legend may take a few seconds to load for larger queries.");
 
 for (var i = 0; i < times.length; i++) {
 // console.log(names[i]);
