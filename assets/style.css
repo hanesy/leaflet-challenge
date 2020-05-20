@@ -144,3 +144,7 @@ html {
   font-weight: bolder;
 
 }
+
+.active {
+  font-weight: bold;
+}
